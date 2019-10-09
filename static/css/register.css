@@ -13,6 +13,7 @@
     height: 40%;
     left: 65%;
     top:25%;
+    text-align:center;
 }
 #title{
     position: absolute;
@@ -30,5 +31,10 @@
 .text{
     display: inline-block;
     font-size:20px;
+    width: 66px;
+}
+.text1{
+    display: inline-block;
+    font-size:15px;
     width: 66px;
 }

@@ -1,0 +1,34 @@
+#login{
+    position: relative;
+    width: 1350px;
+}
+#login img{
+    width: 100%;
+    height: 100%;
+
+}
+#loginBox{
+    position: absolute;
+    width: 20%;
+    height: 40%;
+    left: 65%;
+    top:25%;
+}
+#title{
+    position: absolute;
+    font-size:30px;
+    left:40%;
+}
+#userName{
+    position: absolute;
+    top: 20%;
+}
+#passWord{
+    position: absolute;
+    top: 40%;
+}
+.text{
+    display: inline-block;
+    font-size:20px;
+    width: 66px;
+}

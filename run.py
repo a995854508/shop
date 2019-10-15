@@ -140,7 +140,7 @@ class OrdersDetail(db.Model):
     number = db.Column(db.Integer, default=0)  # 购买数量
 
 
-# db.drop_all()
+db.drop_all()
 db.create_all()
 
 

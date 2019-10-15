@@ -52,7 +52,7 @@ class User(db.Model):
         return '<User %r' % self.name
 
 
-# db.drop_all()
+db.drop_all()
 db.create_all()
 
 

@@ -1,19 +1,38 @@
-from flask import Flask, render_template, redirect, request
-from flask_sqlalchemy import SQLAlchemy
-import pymysql
+from flask import render_template
 
-pymysql.install_as_MySQLdb()
-app = Flask(__name__)
+from model import *
 
-app.config['SQLALCHEMY_DATABASE_URL'] = 'mysql://root:123456@localhost:3306/shop'
-# 设置自动追踪
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
-# 自动提交数据到数据库
-app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
-db = SQLAlchemy(app)
+db.create_all()
 
 
-class Admin(db.Model):
+@app.route('/')
+@app.route('/index')
+def index():
     """
-    管理员表
+    首页
+    :return:
     """
+    new_goods = Goods.query.filter_by(is_new=1).order_by(
+        Goods.addtime.desc()).limit(12).all()
+    sale_goods = Goods.query.filter_by(is_sale=1).order_by(
+        Goods.addtime.desc()).limit(12).all()
+    hot_goods = Goods.query.order_by(
+        Goods.views_count.desc()).limit(2).all()
+    return render_template('home/index.html',
+                           new_goods=new_goods,
+                           sale_goods=sale_goods,
+                           hot_goods=hot_goods)
+
+
+@app.route('/login')
+def login():
+    return render_template('login.html')
+
+
+@app.route('/register')
+def register():
+    return render_template('register.html')
+
+
+if __name__ == "__main__":
+    app.run(debug=True)

@@ -61,5 +61,3 @@ mysqldump -u root -p shop > ./shop.sql(保存在当前文件夹)
 
 #### 2. 恢复命令格式
 mysql -u root -p shop < shop.sql(恢复当前文件夹的shop数据库)
-
-https://cloud.tencent.com/act/free?hashKey=onuOO6

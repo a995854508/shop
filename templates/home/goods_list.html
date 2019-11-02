@@ -66,14 +66,14 @@
 											<table width="100%" border="0" cellspacing="0" cellpadding="0">
 												<tr>
 												  <td height="30" align="right">当前页数：[{{page_data.page}}/{{page_data.pages}}]&nbsp;
-													<a href="{{ url_for('home.goods_list',page=1,supercat_id=supercat_id) }}">第一页</a>
+													<a href="{{ url_for('goods_list',page=1,supercat_id=supercat_id) }}">第一页</a>
 													{% if page_data.has_prev %}
-													  <a href="{{ url_for('home.goods_list',page=page_data.prev_num,supercat_id=supercat_id) }}">上一页</a>
+													  <a href="{{ url_for('goods_list',page=page_data.prev_num,supercat_id=supercat_id) }}">上一页</a>
 													{% endif %}
 													{% if page_data.has_next %}
-												　     <a href="{{ url_for('home.goods_list',page=page_data.next_num,supercat_id=supercat_id) }}">下一页</a>
+												　     <a href="{{ url_for('goods_list',page=page_data.next_num,supercat_id=supercat_id) }}">下一页</a>
 													{% endif %}　
-													<a href="{{ url_for('home.goods_list',page=page_data.pages,supercat_id=supercat_id) }}">最后一页&nbsp;</a>
+													<a href="{{ url_for('goods_list',page=page_data.pages,supercat_id=supercat_id) }}">最后一页&nbsp;</a>
 												  </td>
 												</tr>
 											</table>

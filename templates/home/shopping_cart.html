@@ -27,11 +27,11 @@
                                             {% for item in cart %}
                                              <tr>
                                                 <td class="text-center image" width="20%">
-                                                    <a href="{{url_for('home.goods_detail',id=item.goods.id)}}">
+                                                    <a href="{{url_for('goods_detail',id=item.goods.id)}}">
                                                     <img width="80px" src="{{url_for('static',filename='images/goods/'+item.goods.picture)}}"> </a>
                                                 </td>
                                                 <td class="text-left name">
-                                                    <a href="{{url_for('home.goods_detail',id=item.goods.id)}}">{{item.goods.name}}</a>
+                                                    <a href="{{url_for('goods_detail',id=item.goods.id)}}">{{item.goods.name}}</a>
                                                 </td>
                                                 <td class="text-left quantity">{{item.number}}件</td>
                                                 <td class="text-right price">{{item.goods.current_price}}元</td>
@@ -68,7 +68,7 @@
                             <div id="content_oc" class="col-sm-12">
                                 <h1>物流信息</h1>
                                 <!-- 填写物流信息的表单 -->
-                                <form action="{{url_for('home.cart_order')}}" method="post" id="myform">
+                                <form action="{{url_for('cart_order')}}" method="post" id="myform">
                                     <div class="table-responsive cart-info">
                                         <table class="table table-bordered">
                                             <tbody>
@@ -129,10 +129,10 @@
                                 <br /> <br />
                                 <div class="buttons">
                                     <div class="pull-left">
-                                        <a href="{{url_for('home.index')}}" class="btn btn-primary btn-default">继续购物</a>
+                                        <a href="{{url_for('index')}}" class="btn btn-primary btn-default">继续购物</a>
                                     </div>
                                     <div class="pull-left">
-                                        <a href="{{url_for('home.cart_clear')}}" class="btn btn-primary btn-default">清空购物车</a>
+                                        <a href="{{url_for('cart_clear')}}" class="btn btn-primary btn-default">清空购物车</a>
                                     </div>
                                     <div class="pull-right">
                                         <a href="javascript:zhifu();" class="tigger btn btn-primary btn-primary">结账</a>

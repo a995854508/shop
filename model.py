@@ -1,10 +1,10 @@
 from flask_sqlalchemy import SQLAlchemy
 from flask import Flask
 from wtforms.validators import DataRequired, Email, Regexp, \
-    EqualTo, ValidationError,Length
+    EqualTo, ValidationError, Length
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, \
-    TextAreaField, RadioField,DecimalField,SelectField
+    TextAreaField, RadioField, DecimalField, SelectField
 
 from datetime import datetime
 import pymysql
@@ -147,6 +147,7 @@ class Orders(db.Model):
         return "<Orders %r>" % self.id
 
 
+# 订单详情
 class OrdersDetail(db.Model):
     __tablename__ = 'orders_detail'
     id = db.Column(db.Integer, primary_key=True)  # 编号
@@ -155,23 +156,22 @@ class OrdersDetail(db.Model):
     number = db.Column(db.Integer, default=0)  # 购买数量
 
 
-
 class RegisterForm(FlaskForm):
     """
     用户注册表单
     """
     username = StringField(
-        label= "账户 ：",
+        label="账户 ：",
         validators=[
             DataRequired("用户名不能为空！"),
             Length(min=3, max=50, message="用户名长度必须在3到10位之间")
         ],
         description="用户名",
         render_kw={
-            "type"       : "text",
+            "type": "text",
             "placeholder": "请输入用户名！",
-            "class":"validate-username",
-            "size" : 38,
+            "class": "validate-username",
+            "size": 38,
         }
     )
     phone = StringField(
@@ -188,7 +188,7 @@ class RegisterForm(FlaskForm):
         }
     )
     email = StringField(
-        label = "邮箱 ：",
+        label="邮箱 ：",
         validators=[
             DataRequired("邮箱不能为空！"),
             Email("邮箱格式不正确！")
@@ -212,7 +212,7 @@ class RegisterForm(FlaskForm):
         }
     )
     repassword = PasswordField(
-        label= "确认密码 ：",
+        label="确认密码 ：",
         validators=[
             DataRequired("请输入确认密码！"),
             EqualTo('password', message="两次密码不一致！")
@@ -239,6 +239,7 @@ class RegisterForm(FlaskForm):
         user = User.query.filter_by(email=email).count()
         if user == 1:
             raise ValidationError("邮箱已经存在！")
+
     def validate_phone(self, field):
         """
         检测手机号是否已经存在
@@ -248,6 +249,7 @@ class RegisterForm(FlaskForm):
         user = User.query.filter_by(phone=phone).count()
         if user == 1:
             raise ValidationError("手机号已经存在！")
+
 
 class LoginForm(FlaskForm):
     """
@@ -262,9 +264,9 @@ class LoginForm(FlaskForm):
         render_kw={
             "type": "text",
             "placeholder": "请输入用户名！",
-            "class":"validate-username",
-            "size" : 38,
-            "maxlength" : 99
+            "class": "validate-username",
+            "size": 38,
+            "maxlength": 99
         }
     )
     password = PasswordField(
@@ -274,9 +276,9 @@ class LoginForm(FlaskForm):
         ],
         description="密码",
         render_kw={
-            "type"       : "password",
+            "type": "password",
             "placeholder": "请输入密码！",
-            "class":"validate-password",
+            "class": "validate-password",
             "size": 38,
             "maxlength": 99
         }
@@ -285,9 +287,9 @@ class LoginForm(FlaskForm):
         'VerifyCode',
         validators=[DataRequired()],
         render_kw={
-            "class":"validate-code",
-            "size" : 18,
-            "maxlength" : 4,
+            "class": "validate-code",
+            "size": 18,
+            "maxlength": 4,
         }
     )
 
@@ -297,6 +299,7 @@ class LoginForm(FlaskForm):
             "class": "btn btn-primary login",
         }
     )
+
 
 class PasswordForm(FlaskForm):
     """
@@ -342,6 +345,7 @@ class PasswordForm(FlaskForm):
             "class": "btn btn-primary login",
         }
     )
+
     def validate_old_password(self, field):
         from flask import session
         old_password = field.data
@@ -349,6 +353,7 @@ class PasswordForm(FlaskForm):
         user = User.query.get(int(user_id))
         if not user.check_password(old_password):
             raise ValidationError("原始密码错误！")
+
 
 class SuggetionForm(FlaskForm):
     """
@@ -362,7 +367,7 @@ class SuggetionForm(FlaskForm):
         description="姓名",
         render_kw={
             "placeholder": "请输入姓名！",
-            "class" : "form-control"
+            "class": "form-control"
         }
     )
     email = StringField(
@@ -372,9 +377,9 @@ class SuggetionForm(FlaskForm):
         ],
         description="邮箱",
         render_kw={
-            "type"       : "email",
+            "type": "email",
             "placeholder": "请输入邮箱！",
-            "class" : "form-control"
+            "class": "form-control"
         }
     )
     content = TextAreaField(
@@ -386,7 +391,7 @@ class SuggetionForm(FlaskForm):
         render_kw={
             "class": "form-control",
             "placeholder": "请输入内容！",
-            "rows" : 7
+            "rows": 7
         }
     )
     submit = SubmitField(
@@ -493,7 +498,7 @@ class GoodsForm(FlaskForm):
         description="商品价格",
         render_kw={
             "class": "Sytle_text",
-                "placeholder": "请输入商品价格！"
+            "placeholder": "请输入商品价格！"
         }
     )
     current_price = DecimalField(
@@ -504,23 +509,23 @@ class GoodsForm(FlaskForm):
         description="商品现价",
         render_kw={
             "class": "Sytle_text",
-                "placeholder": "请输入商品现价！"
+            "placeholder": "请输入商品现价！"
         }
     )
     is_new = RadioField(
-        label = '是否新品',
+        label='是否新品',
         description="是否新品",
-        coerce = int,
-        choices=[(0, '否'), (1,'是')], default=0,
+        coerce=int,
+        choices=[(0, '否'), (1, '是')], default=0,
         render_kw={
-            "class" : "is_radio"
+            "class": "is_radio"
         }
     )
-    is_sale= RadioField(
-        label = '是否特价',
+    is_sale = RadioField(
+        label='是否特价',
         description="是否特价",
-        coerce = int,
-        choices=[(0, '否'), (1,'是')], default=0,
+        coerce=int,
+        choices=[(0, '否'), (1, '是')], default=0,
         render_kw={
             "class": "is_radio"
         }
@@ -542,9 +547,3 @@ class GoodsForm(FlaskForm):
             "class": "btn_bg_short",
         }
     )
-
-
-
-
-
-

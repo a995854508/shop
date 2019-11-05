@@ -1,4 +1,3 @@
-from model import *
 from flask import render_template, url_for, redirect, \
     flash, session, request, make_response, jsonify
 from werkzeug.security import generate_password_hash
@@ -9,6 +8,7 @@ from io import BytesIO
 from sqlalchemy import or_
 from functools import wraps
 from decimal import *
+from model import *
 
 
 def rndColor():

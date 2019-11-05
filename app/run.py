@@ -1,4 +1,3 @@
-from model import *
 from flask import render_template, url_for, redirect, \
     flash, session, request, make_response, jsonify
 from werkzeug.security import generate_password_hash
@@ -9,11 +8,14 @@ from io import BytesIO
 from sqlalchemy import or_
 from functools import wraps
 from decimal import *
+from app.form import *
 
 
 def rndColor():
     '''随机颜色'''
-    return (random.randint(32, 127), random.randint(32, 127), random.randint(32, 127))
+    return (random.randint(32, 127),
+            random.randint(32, 127),
+            random.randint(32, 127))
 
 
 def gene_text():
@@ -162,6 +164,7 @@ def modify_password():
 
 
 @app.route("/")
+@app.route("/index/")
 def index():
     """
     首页
